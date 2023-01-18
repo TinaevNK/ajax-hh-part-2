@@ -1,0 +1,103 @@
+@keyframes color {
+    0% {
+        background: #33cccc;
+    }
+    20% {
+        background: #33cc36;
+    }
+    40% {
+        background: #b8cc33;
+    }
+    60% {
+        background: #fcca00;
+    }
+    80% {
+        background: #33cc36;
+    }
+    100% {
+        background: #33cccc;
+    }
+}
+
+.body {
+    margin: 0;
+    background: rgb(2, 0, 36);
+    background: radial-gradient(
+        circle,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(22, 22, 22, 1) 20%,
+        rgba(195, 36, 41, 1) 37%,
+        rgba(8, 7, 7, 0.9304096638655462) 57%,
+        rgba(0, 212, 255, 1) 72%,
+        rgba(7, 21, 24, 1) 86%,
+        rgba(30, 39, 158, 1) 93%
+    );
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto 20px;
+    max-width: 1280px;
+    gap: 30px;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.main__title {
+    margin: 30px 0 30px;
+    color: white;
+}
+
+.content {
+    color: white;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.content > div {
+    margin: 30px 0;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+
+.content__square {
+    width: 100px;
+    height: 100px;
+    animation: color 9s infinite linear;
+    background-color: wheat;
+    color: black;
+    font-weight: bold;
+}
+
+.content__square_drag-area {
+    touch-action: none;
+    text-align: center;
+    line-height: 100px;
+}
+
+.content__drop-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.content__drop-area_owerflow {
+    position: relative;
+    overflow: hidden;
+}
+
+.content__drop-area_flex {
+    flex-wrap: wrap;
+}
+
+.content__drop-area_focus {
+    background-color: rgba(255, 255, 255, 0.5);
+}
