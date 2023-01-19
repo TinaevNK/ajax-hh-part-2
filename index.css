@@ -68,6 +68,7 @@
 .content__square {
     width: 100px;
     height: 100px;
+    border-radius: 20px;
     animation: color 9s infinite linear;
     background-color: wheat;
     color: black;
@@ -82,8 +83,6 @@
 
 .content__drop-area {
     display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 200px;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.5);
@@ -94,8 +93,31 @@
     overflow: hidden;
 }
 
+.content__drop-area_owerflow::after {
+    content: "Drop-owerflow area";
+    position: absolute;
+    padding: 10px 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .content__drop-area_flex {
     flex-wrap: wrap;
+    position: relative;
+}
+
+.content__drop-area_flex::after {
+    content: "Drop-flex area";
+    position: absolute;
+    padding: 10px 5px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .content__drop-area_focus {
