@@ -73,12 +73,14 @@
     background-color: wheat;
     color: black;
     font-weight: bold;
+    cursor: grabbing;
 }
 
 .content__square_drag-area {
     touch-action: none;
     text-align: center;
     line-height: 100px;
+    cursor: grab;
 }
 
 .content__drop-area {

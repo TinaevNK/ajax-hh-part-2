@@ -1,6 +1,7 @@
 const dragArea = document.querySelector(".content__square_drag-area");
 const dropAreas = document.querySelectorAll(".content__drop-area");
 
+// координаты элемента (нужно для реализации скролла)
 const elementPosition = {
     x: 0,
     y: 0,
@@ -27,14 +28,9 @@ const createSquare = () => {
 };
 
 // хелпер для задания корректных координат при клике на элемент (чтобы новый квадрат создался ровно на том же месте где и drag область)
-const moveElement = (elem, x, y, scroll = false) => {
+const moveElement = (elem, x, y) => {
     elem.style.left = `${x}px`;
     elem.style.top = `${y}px`;
-
-    if (!scroll) {
-        elementPosition.x = x;
-        elementPosition.y = y;
-    }
 };
 
 dragArea.addEventListener("pointerdown", (e) => {
@@ -64,7 +60,9 @@ dragArea.addEventListener("pointerdown", (e) => {
         });
 
         // сместим элемент по координатам указателя
-        moveElement(square, e.pageX - shiftX, e.pageY - shiftY);
+        elementPosition.x = e.clientX - shiftX;
+        elementPosition.y = e.clientY - shiftY;
+        moveElement(square, elementPosition.x + scrollX, elementPosition.y + scrollY);
     };
 
     // колбэк для отпускания элементов и удаления обработчиков
@@ -90,6 +88,8 @@ dragArea.addEventListener("pointerdown", (e) => {
             return;
         }
 
+        square.style.cursor = 'default';
+
         // иначе добавим его в нашу область
         dropArea.appendChild(square);
         if (dropArea.classList.contains("content__drop-area_flex"))
@@ -102,13 +102,11 @@ dragArea.addEventListener("pointerdown", (e) => {
             );
     };
 
-    const scrolling = (event) => {
-        event.preventDefault();
+    const scrolling = () => {
         moveElement(
             square,
             elementPosition.x + scrollX,
             elementPosition.y + scrollY,
-            true
         );
     };
 
