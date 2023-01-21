@@ -1,6 +1,11 @@
 const dragArea = document.querySelector(".content__square_drag-area");
 const dropAreas = document.querySelectorAll(".content__drop-area");
 
+const elementPosition = {
+    x: 0,
+    y: 0,
+};
+
 // функция получения рандомного HEX-цвета
 const getRandomColor = () => {
     const letters = "0123456789ABCDEF";
@@ -22,9 +27,14 @@ const createSquare = () => {
 };
 
 // хелпер для задания корректных координат при клике на элемент (чтобы новый квадрат создался ровно на том же месте где и drag область)
-const moveElement = (elem, x, y) => {
+const moveElement = (elem, x, y, scroll = false) => {
     elem.style.left = `${x}px`;
     elem.style.top = `${y}px`;
+
+    if (!scroll) {
+        elementPosition.x = x;
+        elementPosition.y = y;
+    }
 };
 
 dragArea.addEventListener("pointerdown", (e) => {
@@ -94,11 +104,11 @@ dragArea.addEventListener("pointerdown", (e) => {
 
     const scrolling = (event) => {
         event.preventDefault();
-        console.log(scrollX, scrollY);
         moveElement(
             square,
-            parseInt(square.style.left) + window.scrollX,
-            parseInt(square.style.top) + window.scrollY
+            elementPosition.x + scrollX,
+            elementPosition.y + scrollY,
+            true
         );
     };
 
