@@ -27,9 +27,7 @@ const moveElement = (elem, x, y) => {
     elem.style.top = `${y}px`;
 };
 
-document.addEventListener("pointerdown", (e) => {
-    if (e.target !== dragArea) return;
-
+dragArea.addEventListener("pointerdown", (e) => {
     const square = createSquare();
     document.body.appendChild(square);
 
@@ -64,6 +62,7 @@ document.addEventListener("pointerdown", (e) => {
         // удаляем обработчики, чтобы не висели в браузере
         document.removeEventListener("pointermove", pointerMove);
         document.removeEventListener("pointerup", pointerUp);
+        document.removeEventListener("scroll", scrolling);
 
         // уберём фокус с поля
         dropAreas.forEach((area) =>
@@ -93,7 +92,18 @@ document.addEventListener("pointerdown", (e) => {
             );
     };
 
+    const scrolling = (event) => {
+        event.preventDefault();
+        console.log(scrollX, scrollY);
+        moveElement(
+            square,
+            parseInt(square.style.left) + window.scrollX,
+            parseInt(square.style.top) + window.scrollY
+        );
+    };
+
     // повесим обработчики на движение и отпускание
     document.addEventListener("pointermove", pointerMove);
     document.addEventListener("pointerup", pointerUp);
+    document.addEventListener("scroll", scrolling);
 });
