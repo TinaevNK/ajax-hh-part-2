@@ -62,7 +62,30 @@ dragArea.addEventListener("pointerdown", (e) => {
         // сместим элемент по координатам указателя
         elementPosition.x = e.clientX - shiftX;
         elementPosition.y = e.clientY - shiftY;
-        moveElement(square, elementPosition.x + scrollX, elementPosition.y + scrollY);
+        moveElement(
+            square,
+            elementPosition.x + scrollX,
+            elementPosition.y + scrollY
+        );
+
+        // автоскролл если потянутый элемент внизу экрана и ещё есть место куда пролистывать
+        if (
+            e.clientY >= window.innerHeight - 10 &&
+            e.pageY < document.body.offsetHeight - 10
+        ) {
+            window.scrollBy({
+                top: 100,
+                behavior: "smooth",
+            });
+        }
+
+        // а это если элемент вверху
+        if (e.clientY <= 10 && e.clientY !== e.pageY) {
+            window.scrollBy({
+                top: -100,
+                behavior: "smooth",
+            });
+        }
     };
 
     // колбэк для отпускания элементов и удаления обработчиков
@@ -88,7 +111,7 @@ dragArea.addEventListener("pointerdown", (e) => {
             return;
         }
 
-        square.style.cursor = 'default';
+        square.style.cursor = "default";
 
         // иначе добавим его в нашу область
         dropArea.appendChild(square);
@@ -106,7 +129,7 @@ dragArea.addEventListener("pointerdown", (e) => {
         moveElement(
             square,
             elementPosition.x + scrollX,
-            elementPosition.y + scrollY,
+            elementPosition.y + scrollY
         );
     };
 
